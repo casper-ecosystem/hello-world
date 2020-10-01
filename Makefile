@@ -5,7 +5,6 @@ build-contract:
 	cargo build --release -p contract --target wasm32-unknown-unknown
 
 test-only:
-	cargo test -p logic
 	cargo test -p tests
 
 lint:
