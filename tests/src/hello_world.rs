@@ -18,15 +18,15 @@ impl HelloWorldContract {
             .with_account(TEST_ACCOUNT, U512::from(128_000_000))
             .build();
         let session_code = Code::from("contract.wasm");
-        let session = SessionBuilder::new(session_code, runtime_args!{})
+        let session = SessionBuilder::new(session_code, runtime_args! {})
             .with_address(TEST_ACCOUNT)
-                .with_authorization_keys(&[TEST_ACCOUNT])
-                .build();
+            .with_authorization_keys(&[TEST_ACCOUNT])
+            .build();
         context.run(session);
         let hello_world_hash = Self::contract_hash(&context, HELLO_WORLD_HASH);
         Self {
             context,
-            hello_world_hash
+            hello_world_hash,
         }
     }
 
@@ -63,5 +63,4 @@ impl HelloWorldContract {
             }
         }
     }
-
 }

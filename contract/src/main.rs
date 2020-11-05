@@ -21,7 +21,6 @@ const KEY: &str = "special_value";
 /// The value of the string to be stored
 const ARG_MESSAGE: &str = "hello world";
 
-
 #[casperlabs_contract]
 mod hello_world {
 
@@ -49,4 +48,3 @@ mod hello_world {
         }
     }
 }
-
