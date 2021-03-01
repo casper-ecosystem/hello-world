@@ -1,6 +1,6 @@
 # Hello World Smart Contract
 
-The steps below are a quick start if you have already set up the [nctl](https://github.com/CasperLabs/casper-node/tree/master/utils/nctl) testing tool. 
+Simple hello world smart contract for Casper.
 
 ## Install
 
