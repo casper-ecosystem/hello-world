@@ -13,7 +13,8 @@ mod tests {
 
     #[test]
     fn should_store_hello_world() {
-        let public_key = PublicKey::from(&SecretKey::ed25519_from_bytes(MY_ACCOUNT).unwrap());
+        let secret_key = SecretKey::ed25519_from_bytes(MY_ACCOUNT).unwrap();
+        let public_key = PublicKey::from(&secret_key);
         let account_addr = AccountHash::from(&public_key);
 
         let mut context = TestContextBuilder::new()
