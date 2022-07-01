@@ -16,7 +16,7 @@ make prepare
 ```
 
 ### Compile session code
-Compile WebAssembly (Wasm) files that will be used to deploy the session code.
+Compile the session code to WebAssembly (Wasm)
 ```bash
 make build-contract
 ```
