@@ -15,7 +15,7 @@ You need the Rust toolchain to develop smart contracts.
 make prepare
 ```
 
-### Compile smart contracts
+### Compile session code
 Compile WebAssembly (Wasm) files that will be used to deploy the session code.
 ```bash
 make build-contract
