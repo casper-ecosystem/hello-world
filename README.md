@@ -138,7 +138,7 @@ Make a note of the NamedKey URef hash in the faucet account details.
 
 ### View the value stored in the NamedKey
 
-You can view the value stored in the NamedKey by using the uref hash assigned to the NamedKey. To do this, we will first find the state root hash of the network using the following command:
+You can view the value stored in the NamedKey by using the URef hash assigned to the NamedKey. To do this, we will first find the state root hash of the network using the following command:
 
 ```bash
 casper-client get-state-root-hash --node-address http://localhost:11101
