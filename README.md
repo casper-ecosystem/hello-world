@@ -132,7 +132,7 @@ After the deploy is successful, you can view the new NamedKey `special_value` in
 
 :::note
 
-Make a note of the NakedKey uref hash in the faucet account details.
+Make a note of the NamedKey URef hash in the faucet account details.
 
 :::
 
