@@ -160,7 +160,7 @@ casper-client get-state-root-hash --node-address http://localhost:11101
 
 </details>
 
-Then use the uref hash and the state root hash to view the value stored in the NamedKey.
+Then use the URef hash and the state root hash to view the value stored in the NamedKey.
 
 ```bash
 casper-client query-state \
