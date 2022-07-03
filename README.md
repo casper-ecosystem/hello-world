@@ -5,7 +5,7 @@ This session code accepts a message string and stores it in the calling account 
 **Usage**: This session code expects a runtime argument named `message` of the type `String`.
 
 **Tests**: There are two tests available to test the Hello World session code. The `should_store_hello_world` test verifies the successful path, where a string *hello world* is saved under the `special_value` NamedKey. The `should_error_on_missing_runtime_arg` test verifies that an error is displayed when the runtime argument is missing. 
-The tests start by initializing the casper crates and creating a genesis account. Then the contract Wasm is loaded to the session_code object. The deploy_item object is created using the details like payment method, session code arguments, and account address. The deploy_item object is passed to the execute_request. Finally, the execution engine is invoked to process the execute_request. 
+The tests start by initializing the Casper crates and creating a genesis account. Then the contract Wasm is loaded to the session_code object. The deploy_item object is created using the details like payment method, session code arguments, and the account address. The deploy_item object is passed to the execute_request. Finally, the execution engine is invoked to process the execute_request. 
 
 ## Build and Test the Session Code 
 
