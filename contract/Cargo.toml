@@ -5,8 +5,8 @@ authors = ["darthsiroftardis <karan@casperlabs.io>"]
 edition = "2018"
 
 [dependencies]
-casper-contract = "1.4.4"
-casper-types = "1.5.0"
+casper-contract = "3.0.0"
+casper-types = "3.0.0"
 
 [[bin]]
 name = "contract"
@@ -14,6 +14,3 @@ path = "src/main.rs"
 bench = false
 doctest = false
 test = false
-
-[features]
-default = ["casper-contract/std", "casper-types/std", "casper-contract/test-support"]
