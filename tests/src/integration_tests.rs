@@ -9,8 +9,8 @@ mod tests {
     use casper_execution_engine::core::{engine_state::Error as EngineStateError, execution};
     use casper_types::{runtime_args, ApiError, Key, RuntimeArgs};
 
-    // Define `KEY` constant to match that in the contract.
-    const KEY: &str = "my-key-name";
+    // Define `KEY_NAME` constant to match that in the contract.
+    const KEY_NAME: &str = "my-key-name";
     const VALUE: &str = "hello world";
     const RUNTIME_ARG_NAME: &str = "message";
     const CONTRACT_WASM: &str = "contract.wasm";
@@ -45,7 +45,7 @@ mod tests {
         let result_of_query = builder.query(
             None,
             Key::Account(*DEFAULT_ACCOUNT_ADDR),
-            &[KEY.to_string()],
+            &[KEY_NAME.to_string()],
         );
         assert!(result_of_query.is_err());
 
@@ -57,7 +57,7 @@ mod tests {
             .query(
                 None,
                 Key::Account(*DEFAULT_ACCOUNT_ADDR),
-                &[KEY.to_string()],
+                &[KEY_NAME.to_string()],
             )
             .expect("should be stored value.")
             .as_cl_value()
