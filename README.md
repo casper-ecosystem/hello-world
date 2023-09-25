@@ -4,25 +4,31 @@ This session code accepts a message string and stores it in the calling account 
 
 **Usage**: This session code expects a runtime argument named `message` of the type `String`.
 
-**Tests**: There are two tests available to test the Hello World session code. The `should_store_hello_world` test verifies the successful path, where a string *hello world* is saved under the `special_value` NamedKey. The `should_error_on_missing_runtime_arg` test verifies that an error is displayed when the runtime argument is missing. 
-The tests start by initializing the Casper crates and creating a genesis account. Then the contract Wasm is loaded to the session_code object. The deploy_item object is created using the details like payment method, session code arguments, and the account address. The deploy_item object is passed to the execute_request. Finally, the execution engine is invoked to process the execute_request. 
+**Tests**: There are two tests available to test the Hello World session code. The `should_store_hello_world` test verifies the successful path, where a string _hello world_ is saved under the `special_value` NamedKey. The `should_error_on_missing_runtime_arg` test verifies that an error is displayed when the runtime argument is missing.
+The tests start by initializing the Casper crates and creating a genesis account. Then the contract Wasm is loaded to the session_code object. The deploy_item object is created using the details like payment method, session code arguments, and the account address. The deploy_item object is passed to the execute_request. Finally, the execution engine is invoked to process the execute_request.
 
-## Build and Test the Session Code 
+## Build and Test the Session Code
 
 ### Set up the Rust toolchain
+
 You need the Rust toolchain to develop smart contracts.
+
 ```bash
 make prepare
 ```
 
 ### Compile session code
+
 Compile the session code to WebAssembly (Wasm)
+
 ```bash
 make build-contract
 ```
 
 ### Test
+
 Run the tests suite.
+
 ```bash
 make test
 ```
@@ -74,7 +80,6 @@ nctl-view-faucet-account
 
 </details>
 
-
 The following command will help you deploy the session code on the NCTL network. In the following command, the KEY PATH is the path of the faucet account secret key.
 
 ```bash
@@ -84,10 +89,10 @@ casper-client put-deploy \
     --secret-key [KEY PATH]/secret_key.pem \
     --payment-amount 5000000000000 \
     --session-path [CONTRACT PATH]/contract.wasm \
-    --session-arg "message:string='hello world'"    
+    --session-arg "message:string='hello world'"
 ```
 
-After the deploy is successful, you can view the new NamedKey `special_value` in the faucet account details.  
+After the deploy is successful, you can view the new NamedKey `special_value` in the faucet account details.
 
 <details>
 <summary>Sample faucet account details after successful deploy</summary>
@@ -149,7 +154,7 @@ casper-client get-state-root-hash --node-address http://localhost:11101
 
 ```json
 {
-"id": -7547762796950564402,
+  "id": -7547762796950564402,
   "jsonrpc": "2.0",
   "result": {
     "api_version": "1.0.0",
@@ -192,6 +197,3 @@ casper-client query-state \
 ```
 
 </details>
-
-
-
