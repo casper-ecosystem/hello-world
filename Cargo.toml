@@ -1,9 +1,17 @@
 [workspace]
+members = ["contract", "tests"]
+resolver = "2"
 
-members = [
-    "contract",
-    "tests",
-]
+[workspace.package]
+edition = "2021"
+homepage = "https://casperlabs.io"
+license-file = "../LICENSE"
+readme = "../README.md"
+repository = "https://github.com/casper-ecosystem/hello-world"
+
+[workspace.dependencies]
+casper-types = { git = "https://github.com/casper-network/casper-node", branch = "feat-2.0" }
 
 [profile.release]
-lto = true 
+codegen-units = 1
+lto = true

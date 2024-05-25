@@ -7,7 +7,7 @@ use alloc::string::String;
 use casper_contract::contract_api::{runtime, storage};
 use casper_types::{Key, URef};
 
-const KEY_NAME: &str = "key-name";
+const KEY_NAME: &str = "my-key-name";
 const RUNTIME_ARG_NAME: &str = "message";
 
 fn store(value: String, key_name: String) {
