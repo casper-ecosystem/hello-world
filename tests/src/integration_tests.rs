@@ -10,7 +10,7 @@ mod tests {
     use casper_types::{runtime_args, ApiError, Key, RuntimeArgs};
 
     // Define `KEY_NAME` constant to match that in the contract.
-    const KEY_NAME: &str = "my-key-name";
+    const KEY_NAME: &str = "key-name";
     const VALUE: &str = "hello world";
     const RUNTIME_ARG_NAME: &str = "message";
     const CONTRACT_WASM: &str = "contract.wasm";
@@ -28,6 +28,7 @@ mod tests {
         let session_code = PathBuf::from(CONTRACT_WASM);
         let session_args = runtime_args! {
             RUNTIME_ARG_NAME => VALUE,
+            KEY_NAME => KEY_NAME,
         };
 
         let deploy_item = DeployItemBuilder::new()
