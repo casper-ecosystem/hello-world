@@ -1,13 +1,18 @@
+fn main() {
+    panic!("Execute \"cargo test\" to test the contract, not \"cargo run\".");
+}
 #[cfg(test)]
 mod tests {
     use std::path::PathBuf;
 
     use casper_engine_test_support::{
-        DeployItemBuilder, ExecuteRequestBuilder, InMemoryWasmTestBuilder, ARG_AMOUNT,
-        DEFAULT_ACCOUNT_ADDR, DEFAULT_PAYMENT, PRODUCTION_RUN_GENESIS_REQUEST,
+        utils::create_run_genesis_request, DeployItemBuilder, ExecuteRequestBuilder,
+        LmdbWasmTestBuilder, ARG_AMOUNT, DEFAULT_ACCOUNT_ADDR, DEFAULT_ACCOUNT_PUBLIC_KEY,
+        DEFAULT_PAYMENT,
     };
-    use casper_execution_engine::core::{engine_state::Error as EngineStateError, execution};
-    use casper_types::{runtime_args, ApiError, Key, RuntimeArgs};
+    use casper_execution_engine::{engine_state::Error as CoreError, execution::ExecError};
+
+    use casper_types::{runtime_args, ApiError, GenesisAccount, Key, Motes, RuntimeArgs, U512};
 
     // Define `KEY_NAME` constant to match that in the contract.
     const KEY_NAME: &str = "my-key-name";
@@ -17,9 +22,13 @@ mod tests {
 
     #[test]
     fn should_store_hello_world() {
-        let mut builder = InMemoryWasmTestBuilder::default();
+        let mut builder = LmdbWasmTestBuilder::default();
         builder
-            .run_genesis(&PRODUCTION_RUN_GENESIS_REQUEST)
+            .run_genesis(create_run_genesis_request(vec![GenesisAccount::Account {
+                public_key: DEFAULT_ACCOUNT_PUBLIC_KEY.clone(),
+                balance: Motes::new(U512::from(5_000_000_000_000_u64)),
+                validator: None,
+            }]))
             .commit();
 
         // The test framework checks for compiled Wasm files in '<current working dir>/wasm'.  Paths
@@ -31,7 +40,7 @@ mod tests {
         };
 
         let deploy_item = DeployItemBuilder::new()
-            .with_empty_payment_bytes(runtime_args! {
+            .with_standard_payment(runtime_args! {
                 ARG_AMOUNT => *DEFAULT_PAYMENT
             })
             .with_session_code(session_code, session_args)
@@ -39,7 +48,7 @@ mod tests {
             .with_address(*DEFAULT_ACCOUNT_ADDR)
             .build();
 
-        let execute_request = ExecuteRequestBuilder::from_deploy_item(deploy_item).build();
+        let execute_request = ExecuteRequestBuilder::from_deploy_item(&deploy_item).build();
 
         // prepare assertions.
         let result_of_query = builder.query(
@@ -75,33 +84,34 @@ mod tests {
         let session_args = RuntimeArgs::new();
 
         let deploy_item = DeployItemBuilder::new()
-            .with_empty_payment_bytes(runtime_args! {ARG_AMOUNT => *DEFAULT_PAYMENT})
+            .with_standard_payment(runtime_args! {ARG_AMOUNT => *DEFAULT_PAYMENT})
             .with_authorization_keys(&[*DEFAULT_ACCOUNT_ADDR])
             .with_address(*DEFAULT_ACCOUNT_ADDR)
             .with_session_code(session_code, session_args)
             .build();
 
-        let execute_request = ExecuteRequestBuilder::from_deploy_item(deploy_item).build();
+        let execute_request = ExecuteRequestBuilder::from_deploy_item(&deploy_item).build();
 
-        let mut builder = InMemoryWasmTestBuilder::default();
+        let mut builder = LmdbWasmTestBuilder::default();
         builder
-            .run_genesis(&PRODUCTION_RUN_GENESIS_REQUEST)
+            .run_genesis(create_run_genesis_request(vec![GenesisAccount::Account {
+                public_key: DEFAULT_ACCOUNT_PUBLIC_KEY.clone(),
+                balance: Motes::new(U512::from(5_000_000_000_000_u64)),
+                validator: None,
+            }]))
             .commit();
         builder.exec(execute_request).commit().expect_failure();
 
         let actual_error = builder.get_error().expect("must have error");
+
         assert!(
             matches!(
                 actual_error,
-                EngineStateError::Exec(execution::Error::Revert(ApiError::MissingArgument))
+                CoreError::Exec(ExecError::Revert(ApiError::MissingArgument))
             ),
             "Expected {:?}, received {:?}",
-            EngineStateError::Exec(execution::Error::Revert(ApiError::MissingArgument)),
+            CoreError::Exec(ExecError::Revert(ApiError::MissingArgument)),
             actual_error
         );
     }
-}
-
-fn main() {
-    panic!("Execute \"cargo test\" to test the contract, not \"cargo run\".");
 }

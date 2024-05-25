@@ -1,12 +1,12 @@
 [package]
 name = "contract"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["darthsiroftardis <karan@casperlabs.io>"]
 edition = "2018"
 
 [dependencies]
-casper-contract = "3.0.0"
-casper-types = "3.0.0"
+casper-types.workspace = true
+casper-contract = { git = "https://github.com/casper-network/casper-node", branch = "feat-2.0" }
 
 [[bin]]
 name = "contract"
