@@ -90,6 +90,7 @@ casper-client put-deploy \
     --payment-amount 5000000000000 \
     --session-path [CONTRACT PATH]/contract.wasm \
     --session-arg "message:string='hello world'"
+    --session-arg "key-name:string='my-custom_key-name'"
 ```
 
 After the deploy is successful, you can view the new NamedKey `special_value` in the faucet account details.
