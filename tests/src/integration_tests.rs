@@ -3,12 +3,9 @@ fn main() {
 }
 #[cfg(test)]
 mod tests {
-    use std::path::PathBuf;
-
     use casper_engine_test_support::{
-        utils::create_run_genesis_request, DeployItemBuilder, ExecuteRequestBuilder,
-        LmdbWasmTestBuilder, ARG_AMOUNT, DEFAULT_ACCOUNT_ADDR, DEFAULT_ACCOUNT_PUBLIC_KEY,
-        DEFAULT_PAYMENT,
+        utils::create_run_genesis_request, ExecuteRequestBuilder, LmdbWasmTestBuilder,
+        DEFAULT_ACCOUNT_ADDR, DEFAULT_ACCOUNT_PUBLIC_KEY,
     };
     use casper_execution_engine::{engine_state::Error as CoreError, execution::ExecError};
 
@@ -34,21 +31,14 @@ mod tests {
         // The test framework checks for compiled Wasm files in '<current working dir>/wasm'.  Paths
         // relative to the current working dir (e.g. 'wasm/contract.wasm') can also be used, as can
         // absolute paths.
-        let session_code = PathBuf::from(CONTRACT_WASM);
+
         let session_args = runtime_args! {
             RUNTIME_ARG_NAME => VALUE,
         };
 
-        let deploy_item = DeployItemBuilder::new()
-            .with_standard_payment(runtime_args! {
-                ARG_AMOUNT => *DEFAULT_PAYMENT
-            })
-            .with_session_code(session_code, session_args)
-            .with_authorization_keys(&[*DEFAULT_ACCOUNT_ADDR])
-            .with_address(*DEFAULT_ACCOUNT_ADDR)
-            .build();
-
-        let execute_request = ExecuteRequestBuilder::from_deploy_item(&deploy_item).build();
+        let execute_request =
+            ExecuteRequestBuilder::standard(*DEFAULT_ACCOUNT_ADDR, CONTRACT_WASM, session_args)
+                .build();
 
         // prepare assertions.
         let result_of_query = builder.query(
@@ -80,18 +70,6 @@ mod tests {
 
     #[test]
     fn should_error_on_missing_runtime_arg() {
-        let session_code = PathBuf::from(CONTRACT_WASM);
-        let session_args = RuntimeArgs::new();
-
-        let deploy_item = DeployItemBuilder::new()
-            .with_standard_payment(runtime_args! {ARG_AMOUNT => *DEFAULT_PAYMENT})
-            .with_authorization_keys(&[*DEFAULT_ACCOUNT_ADDR])
-            .with_address(*DEFAULT_ACCOUNT_ADDR)
-            .with_session_code(session_code, session_args)
-            .build();
-
-        let execute_request = ExecuteRequestBuilder::from_deploy_item(&deploy_item).build();
-
         let mut builder = LmdbWasmTestBuilder::default();
         builder
             .run_genesis(create_run_genesis_request(vec![GenesisAccount::Account {
@@ -100,6 +78,13 @@ mod tests {
                 validator: None,
             }]))
             .commit();
+
+        let session_args = RuntimeArgs::new();
+
+        let execute_request =
+            ExecuteRequestBuilder::standard(*DEFAULT_ACCOUNT_ADDR, CONTRACT_WASM, session_args)
+                .build();
+
         builder.exec(execute_request).commit().expect_failure();
 
         let actual_error = builder.get_error().expect("must have error");
