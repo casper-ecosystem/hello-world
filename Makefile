@@ -1,4 +1,6 @@
 PINNED_TOOLCHAIN := $(shell cat rust-toolchain)
+RUSTFLAGS := -C target-cpu=mvp
+CARGO_BUILD_FLAGS := -Z build-std=std,panic_abort
 
 prepare:
 	rustup target add wasm32-unknown-unknown
@@ -7,7 +9,7 @@ prepare:
 	rustup component add rust-src --toolchain ${PINNED_TOOLCHAIN}
 
 build-contract:
-	cd contract && RUSTFLAGS="-C target-cpu=mvp" cargo build --release --target wasm32-unknown-unknown -Z build-std=std,panic_abort
+	cd contract && RUSTFLAGS="$(RUSTFLAGS)" cargo +$(PINNED_TOOLCHAIN) build --release --target wasm32-unknown-unknown $(CARGO_BUILD_FLAGS)
 	wasm-strip ./target/wasm32-unknown-unknown/release/contract.wasm
 
 test: build-contract

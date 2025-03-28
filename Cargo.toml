@@ -4,13 +4,13 @@ resolver = "2"
 
 [workspace.package]
 edition = "2021"
-homepage = "https://casperlabs.io"
+homepage = "https://www.casper.network"
 license-file = "../LICENSE"
 readme = "../README.md"
 repository = "https://github.com/casper-ecosystem/hello-world"
 
 [workspace.dependencies]
-casper-types = { git = "https://github.com/casper-network/casper-node", branch = "feat-2.0" }
+casper-types = { git = "https://github.com/casper-network/casper-node", default-features = false }
 
 [profile.release]
 codegen-units = 1

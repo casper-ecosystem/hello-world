@@ -5,8 +5,8 @@ edition = "2021"
 
 [dev-dependencies]
 casper-types.workspace = true
-casper-engine-test-support = { git = "https://github.com/casper-network/casper-node.git", branch = "feat-2.0", default-features = false }
-casper-execution-engine = { git = "https://github.com/casper-network/casper-node.git", branch = "feat-2.0", default-features = false }
+casper-engine-test-support = { git = "https://github.com/casper-network/casper-node.git", default-features = false }
+casper-execution-engine = { git = "https://github.com/casper-network/casper-node.git", default-features = false }
 
 [[bin]]
 name = "integration-tests"
