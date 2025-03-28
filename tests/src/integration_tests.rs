@@ -11,10 +11,10 @@ mod tests {
 
     use casper_types::{runtime_args, ApiError, GenesisAccount, Key, Motes, RuntimeArgs, U512};
 
-    // Define `KEY_NAME` constant to match that in the contract.
-    const KEY_NAME: &str = "my-key-name";
-    const VALUE: &str = "hello world";
-    const RUNTIME_ARG_NAME: &str = "message";
+    const RUNTIME_ARG_KEY_NAME: &str = "key-name";
+    const KEY_NAME_VALUE: &str = "my-custom_key-name";
+    const RUNTIME_ARG_MESSAGE: &str = "message";
+    const MESSAGE_VALUE: &str = "hello world";
     const CONTRACT_WASM: &str = "contract.wasm";
 
     #[test]
@@ -33,7 +33,8 @@ mod tests {
         // absolute paths.
 
         let session_args = runtime_args! {
-            RUNTIME_ARG_NAME => VALUE,
+            RUNTIME_ARG_MESSAGE => MESSAGE_VALUE,
+            RUNTIME_ARG_KEY_NAME => KEY_NAME_VALUE
         };
 
         let execute_request =
@@ -44,7 +45,7 @@ mod tests {
         let result_of_query = builder.query(
             None,
             Key::Account(*DEFAULT_ACCOUNT_ADDR),
-            &[KEY_NAME.to_string()],
+            &[KEY_NAME_VALUE.to_string()],
         );
         assert!(result_of_query.is_err());
 
@@ -56,7 +57,7 @@ mod tests {
             .query(
                 None,
                 Key::Account(*DEFAULT_ACCOUNT_ADDR),
-                &[KEY_NAME.to_string()],
+                &[KEY_NAME_VALUE.to_string()],
             )
             .expect("should be stored value.")
             .as_cl_value()
@@ -65,7 +66,7 @@ mod tests {
             .into_t::<String>()
             .expect("should be string.");
 
-        assert_eq!(result_of_query, VALUE);
+        assert_eq!(result_of_query, MESSAGE_VALUE);
     }
 
     #[test]
