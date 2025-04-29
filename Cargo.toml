@@ -10,7 +10,7 @@ readme = "../README.md"
 repository = "https://github.com/casper-ecosystem/hello-world"
 
 [workspace.dependencies]
-casper-types = { git = "https://github.com/casper-network/casper-node", default-features = false }
+casper-types = { version = "5.0.1", default-features = false }
 
 [profile.release]
 codegen-units = 1

@@ -6,7 +6,7 @@ edition = "2021"
 
 [dependencies]
 casper-types.workspace = true
-casper-contract = { git = "https://github.com/casper-network/casper-node" }
+casper-contract = { version = "5.0.0" }
 
 [[bin]]
 name = "contract"
