@@ -1,12 +1,12 @@
 [package]
 name = "contract"
 version = "0.2.0"
-authors = ["darthsiroftardis <karan@casperlabs.io>"]
+authors = ["darthsiroftardis <karan@casper.network>"]
 edition = "2021"
 
 [dependencies]
 casper-types.workspace = true
-casper-contract = { version = "5.0.0" }
+casper-contract.workspace = true
 
 [[bin]]
 name = "contract"

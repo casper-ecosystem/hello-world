@@ -35,7 +35,7 @@ make test
 
 ## Deploy the Hello World Session Code
 
-You can deploy the Hello World session code on a local network using NCTL. For more information on how to run an NCTL network, see [Setting up an NCTL network](https://docs.casperlabs.io/dapp-dev-guide/building-dapps/setup-nctl/).
+You can deploy the Hello World session code on a local network using NCTL. For more information on how to run an NCTL network, see [Setting up an NCTL network](https://docs.casper.network/condor/local-setup/).
 
 This command provides a view into the faucet account details. The faucet is the special pre-funded Account created on the NCTL network.
 
