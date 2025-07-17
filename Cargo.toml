@@ -1,9 +1,18 @@
 [workspace]
+members = ["contract", "tests"]
+resolver = "2"
 
-members = [
-    "contract",
-    "tests",
-]
+[workspace.package]
+edition = "2021"
+homepage = "https://www.casper.network"
+license-file = "../LICENSE"
+readme = "../README.md"
+repository = "https://github.com/casper-ecosystem/hello-world"
+
+[workspace.dependencies]
+casper-types = { version = "6.0.1", default-features = false }
+casper-contract = { version = "5.1.1" }
 
 [profile.release]
-lto = true 
+codegen-units = 1
+lto = true

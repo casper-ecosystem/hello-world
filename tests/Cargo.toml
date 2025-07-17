@@ -1,18 +1,15 @@
 [package]
 name = "tests"
-version = "0.1.0"
-edition = "2018"
+version = "0.2.0"
+edition = "2021"
 
 [dev-dependencies]
-casper-engine-test-support = "5.0.0"
-casper-contract = { version = "3.0.0", default-features = false, features = [
-  "test-support",
-] }
-casper-execution-engine = "5.0.0"
-casper-types = "3.0.0"
+casper-types.workspace = true
+casper-engine-test-support = { version = "8.1.1", default-features = false }
+casper-execution-engine = { version = "8.1.1", default-features = false }
 
-[[bin]]
-name = "integration-tests"
+[lib]
+name = "integration_tests"
 path = "src/integration_tests.rs"
 bench = false
 doctest = false

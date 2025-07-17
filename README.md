@@ -35,7 +35,7 @@ make test
 
 ## Deploy the Hello World Session Code
 
-You can deploy the Hello World session code on a local network using NCTL. For more information on how to run an NCTL network, see [Setting up an NCTL network](https://docs.casperlabs.io/dapp-dev-guide/building-dapps/setup-nctl/).
+You can deploy the Hello World session code on a local network using NCTL. For more information on how to run an NCTL network, see [Setting up an NCTL network](https://docs.casper.network/condor/local-setup/).
 
 This command provides a view into the faucet account details. The faucet is the special pre-funded Account created on the NCTL network.
 
@@ -90,6 +90,7 @@ casper-client put-deploy \
     --payment-amount 5000000000000 \
     --session-path [CONTRACT PATH]/contract.wasm \
     --session-arg "message:string='hello world'"
+    --session-arg "key-name:string='my-custom_key-name'"
 ```
 
 After the deploy is successful, you can view the new NamedKey `special_value` in the faucet account details.
